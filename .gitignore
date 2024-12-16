@@ -1,0 +1,4 @@
+cgm-example-api/venv
+cgm-example-api/__pycache__
+
+*.log
