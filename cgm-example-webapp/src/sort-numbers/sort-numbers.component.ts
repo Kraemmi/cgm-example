@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { Component, OnDestroy } from "@angular/core";
-import { NumberService } from "./number.service";
+import { NumbersService } from "./numbers.service";
 import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { Observable, Subscription } from "rxjs";
@@ -31,7 +31,7 @@ export class SortNumbersComponent implements OnDestroy {
   isSorting: boolean = false;
   subscriptions: Subscription = new Subscription();
 
-  constructor(private numberService: NumberService) {
+  constructor(private numberService: NumbersService) {
     this.progress$ = this.numberService.getCurrentSortingProgress();
     //this.subscriptions.add(this.numberService.getCurrentSortingProgress().subscribe((currentProgress: number) => this.progress = currentProgress));
   }

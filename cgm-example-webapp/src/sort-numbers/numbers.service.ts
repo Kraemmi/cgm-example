@@ -5,9 +5,9 @@ import { BehaviorSubject, Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class NumberService {
-  private apiBaseUrl = "http://127.0.0.1:8000/";
-  private randomNumbersUrl: string = this.apiBaseUrl + "random-numbers";
+export class NumbersService {
+  private readonly apiBaseUrl = "http://127.0.0.1:8000/";
+  private readonly randomNumbersUrl: string = this.apiBaseUrl + "random-numbers/5";
   private sortDelayMilliSeconds: number = 5000;
   private sortingProgress: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
