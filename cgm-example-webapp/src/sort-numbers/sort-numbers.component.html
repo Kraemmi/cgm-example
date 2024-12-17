@@ -1,1 +1,48 @@
-We arrived in the sort-numbers component :)
+<h3>CompuGroup Medical Zahlensortierer</h3>
+<h2>die professionelle Lösung zur Sortierung Ihrer Zahlen</h2>
+<div class="inputs-container">
+  @for (number of numbers; track $index) {
+    <mat-form-field [ngClass]="{ 'lowest': isLowest(number), 'highest': isHighest(number)}"
+                    class="input-field">
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="numbers[$index]"
+        [readonly]="isSorting"
+      />
+    </mat-form-field>
+  }
+</div>
+
+<div class="actions">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="fetchRandomNumbers()"
+    [disabled]="isSorting"
+  >
+    @if (isSorting) {
+      <ng-container *ngTemplateOutlet="loadingSpinner"/>
+    } @else {
+      Zufällige Zahlen einfügen
+    }
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="sortNumbers()"
+    [disabled]="isSorting"
+  >
+    @if (isSorting) {
+      <ng-container *ngTemplateOutlet="loadingSpinner"/>
+    } @else {
+      Zahlen sortieren
+    }
+  </button>
+</div>
+
+<ng-template #loadingSpinner>
+  <ng-container *ngIf="progress$ | async; let progress ">
+    <mat-spinner mode="determinate" [value]="progress" diameter="25"></mat-spinner>
+  </ng-container>
+</ng-template>
