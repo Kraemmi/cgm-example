@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class NumberService {
-  private apiBaseUrl = 'http://127.0.0.1:8000/';
-  private randomNumbersUrl: string = this.apiBaseUrl + 'random-numbers';
+  private apiBaseUrl = "http://127.0.0.1:8000/";
+  private randomNumbersUrl: string = this.apiBaseUrl + "random-numbers";
   private sortDelayMilliSeconds: number = 5000;
-  private sortingProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private sortingProgress: BehaviorSubject<number> =
+    new BehaviorSubject<number>(0);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getRandomNumbers(): Observable<number[]> {
     return this.http.get<number[]>(this.randomNumbersUrl);
@@ -23,11 +23,28 @@ export class NumberService {
   }
 
   async sortNumbers(numbers: number[]): Promise<void> {
-    let id = setInterval(() => this.increaseProgress(), this.sortDelayMilliSeconds / 100);
-    await new Promise(resolve => setTimeout(resolve, this.sortDelayMilliSeconds));
+    const id = this.startSortingProgress();
+    await this.delay(this.sortDelayMilliSeconds);
     numbers.sort((a, b) => a - b);
-    clearInterval(id);
+    this.stopSortingProgress(id);
+  }
+
+  private startSortingProgress(): number {
+    return window.setInterval(
+      () => this.increaseProgress(),
+      this.sortDelayMilliSeconds / 100,
+    );
+  }
+
+  private stopSortingProgress(id: number): void {
+    window.clearInterval(id);
     this.resetProgress();
+  }
+
+  private async delay(delayInMilliSeconds: number): Promise<void> {
+    return new Promise((resolve) =>
+      window.setTimeout(resolve, delayInMilliSeconds),
+    );
   }
 
   private increaseProgress(amountOfIncrease: number = 1): void {

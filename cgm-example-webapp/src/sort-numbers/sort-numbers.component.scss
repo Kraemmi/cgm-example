@@ -1,5 +1,5 @@
 .input-field {
-  margin: 0 8px 16px;
+  margin: 0 8px 0;
   min-width: 40px;
   max-width: 200px;
 }
@@ -14,8 +14,7 @@
   button {
     min-width: 230px;
     flex: 1;
-    margin: 0 8px;
-    margin-top: 12px;
+    margin: 12px 8px 0;
   }
 }
 
