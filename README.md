@@ -9,7 +9,7 @@ uvicorn main:app --reload
 The api will be available at: *http://127.0.0.1:8000*
 
 ## Start the webapp:
-cd cgm-example-app\
+cd cgm-example-webapp\
 ng serve
 
 The webapp will be available at: *http://localhost:4200*
